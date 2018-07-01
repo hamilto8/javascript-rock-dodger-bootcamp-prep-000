@@ -9,16 +9,16 @@ const ROCKS = []
 const START = document.getElementById('start')
 
 var gameInterval = null
- 
+
 function checkCollision(rock) {
     const top = positionToInteger(rock.style.top)
-  
+
     if (top > 360) {
       const dodgerLeftEdge = positionToInteger(DODGER.style.left)
       const dodgerRightEdge = dodgerLeftEdge+40;
       const rockLeftEdge = positionToInteger(rock.style.left)
       const rockRightEdge = rockLeftEdge+20;
-  
+
    /**  //false
                * Think about it -- what's happening here?
                * There's been a collision if one of three things is true:
@@ -42,13 +42,13 @@ function createRock(x) {
     const rock = document.createElement('div')
     rock.className = 'rock'
     rock.style.left = `${x}px`
-  
+
      // Hmmm, why would we have used `var` here?
     var top = 0
     rock.style.top = `${top}px`
-  
+
     GAME.appendChild(rock);
-  
+
     function moveRock() {
       if(checkCollision(rock)===true){
         endGame();
@@ -66,9 +66,9 @@ function createRock(x) {
         ROCKS.shift();
       }
     }
-  
+
     moveRock();
-  
+
     ROCKS.push(rock);
     return rock;
   }
@@ -78,14 +78,14 @@ function createRock(x) {
       GAME.removeChild(ROCKS[0]);
       ROCKS.shift();
     }
-  
+
     clearInterval(gameInterval);
     window.removeEventListener('keydown', moveDodger);
     alert("YOU LOSE!");
     START.innerHTML = 'Play again?'
     START.style.display = 'inline'
   }
-  
+
 
 function moveDodger(e) {
   if(e.which === 37) {
@@ -101,21 +101,21 @@ function moveDodgerLeft() {
     DODGER.style.left.replace('px', '');
 
     var left = parseInt(leftNumbers, 10);
-       
+
        if(left > 0) {
         DODGER.style.left = `${left -= 4}px`
            window.requestAnimationFrame(step);
-       } 
+       }
    }
    window.requestAnimationFrame(step);
-   
+
 }
 
 function moveDodgerRight() {
    function step() {
     var leftNumbers =
   DODGER.style.left.replace('px', '')
-  
+
       var left = parseInt(leftNumbers, 10);
 
     if(left < 360) {
@@ -124,7 +124,7 @@ function moveDodgerRight() {
         }
     }
     window.requestAnimationFrame(step)
-} 
+}
 
 /**
  * @param {string} p The position property
